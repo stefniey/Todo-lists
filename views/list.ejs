@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To Do List</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <h2>Stay Organized, Stay Productive</h2>
+    <p>Manage your tasks effortlessly with our simple and intuitive to-do list. Whether it's work, personal goals, or daily chores, our tool helps you stay on top of your priorities and achieve more each day. Start ticking off those tasks now!
+    </p>
+    <div class="box" id="heading">
+      <h1><%= kindOfDay %></h1>
+    </div>
+
+    <div class="box">
+      <% for (var i = 0; i < newListItems.length; i++) { %>
+      <div class="item">
+        <form action="/update" method="post" class="item">
+          <input type="checkbox"  onchange="this.form.submit()" name="completed" <%= newListItems[i].completed? "checked" : "" %> />
+          <input type="text" hidden value="<%= i %>" name="updateItem" >
+          <p><%= newListItems[i].name %></p>
+        </form>
+        <form action="/delete" method="post">
+          <input type="text" hidden value="<%= i %>" name="deleteItem">
+          <button type="submit">x</button>
+        </form>
+      </div>
+      <% } %>
+
+      <form class="item" action="/" method="post">
+        <input type="text" name="newItem" placeholder="New Item" autocomplete="off" required/>
+        <button type="submit">+</button>
+      </form>
+    </div>
+
+  </body>
+</html>
+
